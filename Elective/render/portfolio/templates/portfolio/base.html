@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ profile.name }} - Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Your existing styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0.95);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-profile {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            padding: 20px 0;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 15px 25px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #f0f0f0;
+            padding-left: 30px;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-profile">
+            <img src="{% static profile.profile_pic %}" alt="{{ profile.name }}">
+            <h3>{{ profile.name }}</h3>
+            <p>{{ profile.role }}</p>
+        </div>
+        <nav class="nav-links">
+            {% for item in nav_items %}
+            <a href="{{ item.url }}">
+                <i class="{{ item.icon }}"></i> {{ item.title }}
+            </a>
+            {% endfor %}
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
